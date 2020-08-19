@@ -3,22 +3,30 @@
     <nav-bar class='home-nav'>
       <div slot='center'>嗨购</div>
     </nav-bar>
-    <swiper>
-      <swiper-item v-for='(item, index) in banners' :key='index'>
-        <a :href='item.link'>
-          <img :src='item.image' />
-        </a>
-      </swiper-item>
-    </swiper>
+    <home-swiper :banners='banners'></home-swiper>
+    <home-recommends :recommends='recommends'></home-recommends>
+    <home-fashion></home-fashion>
+
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
   </div>
 </template>
 <script>
 //navbar
 import NavBar from '../../components/common/nevbar/NavBar'
+//homeswiper
+import HomeSwiper from './childcomps/HomeSwiper'
+//homerecommends
+import HomeRecommends from './childcomps/HomeRecommends'
+//homefashion
+import HomeFashion from './childcomps/HomeFashion'
 //请求首页数据getMultidata
 import { getMultidata } from '../../network/home'
-//轮播
-import { Swiper, SwiperItem } from '../../components/common/swiper'
 
 export default {
   name: 'Home',
@@ -30,8 +38,9 @@ export default {
   },
   components: {
     NavBar,
-    Swiper,
-    SwiperItem
+    HomeSwiper,
+    HomeRecommends,
+    HomeFashion
   },
   created() {
     getMultidata().then(res => {
@@ -43,7 +52,16 @@ export default {
 }
 </script>
 <style scoped>
+#home {
+  padding-top: 44px;
+}
 .home-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
   background-color: var(--color-tint);
   color: #fff;
 }
