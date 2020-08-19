@@ -7,48 +7,71 @@
     <home-recommends :recommends='recommends'></home-recommends>
     <home-fashion></home-fashion>
 
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <tab-control :titles='["流行","新品","精选"]'></tab-control>
+
+    <goods-list :goodsList='goods["pop"].list'></goods-list>
   </div>
 </template>
 <script>
-//navbar
+//导航
 import NavBar from '../../components/common/nevbar/NavBar'
-//homeswiper
+//tabcontrol切换
+import TabControl from '../../components/content/tabcontrol/TabControl'
+import GoodsList from '../../components/content/goods/GoodsList'
+
+//homeswiper轮播图
 import HomeSwiper from './childcomps/HomeSwiper'
 //homerecommends
 import HomeRecommends from './childcomps/HomeRecommends'
 //homefashion
 import HomeFashion from './childcomps/HomeFashion'
+
 //请求首页数据getMultidata
-import { getMultidata } from '../../network/home'
+import { getMultidata, getHomeGoods } from '../../network/home'
 
 export default {
   name: 'Home',
   data() {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      goods: {
+        'pop': { page: 0, list: [] },
+        'new': { page: 0, list: [] },
+        'sell': { page: 0, list: [] }
+      }
     }
   },
   components: {
-    NavBar,
     HomeSwiper,
     HomeRecommends,
-    HomeFashion
+    HomeFashion,
+
+    NavBar,
+    TabControl,
+    GoodsList
   },
   created() {
     getMultidata().then(res => {
       // console.log(res.data)
       this.banners = res.data.data.banner.list
       this.recommends = res.data.data.recommend.list
-    })
-  }
+    });
+    //获取商品列表
+    this.getGoods('pop');
+    this.getGoods('new')
+    this.getGoods('sell')
+  },
+  methods: {
+    getGoods(type) {
+      const page = this.goods[type].page + 1;
+      getHomeGoods('pop', page).then(res => {
+        // console.log(res.data)
+        this.goods[type].list.push(...res.data.data.list);
+        this.goods[type].page = page;
+      })
+    }
+  },
 }
 </script>
 <style scoped>
