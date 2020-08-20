@@ -29,7 +29,9 @@ export default {
   },
   methods: {
     itemClick(index) {
-      this.currentIndex = index
+      this.currentIndex = index;
+      //子组件向父组件传值
+      this.$emit('tabClick', index)
     }
   }
 }
@@ -43,6 +45,7 @@ export default {
   text-align: center;
   line-height: 40px;
   font-size: 15px;
+  z-index: 1;
 }
 .tabcontrol-item {
   flex: 1;

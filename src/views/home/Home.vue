@@ -7,9 +7,9 @@
     <home-recommends :recommends='recommends'></home-recommends>
     <home-fashion></home-fashion>
 
-    <tab-control :titles='["流行","新品","精选"]'></tab-control>
+    <tab-control :titles='["流行","新品","精选"]' @tabClick='tabClick'></tab-control>
 
-    <goods-list :goodsList='goods["pop"].list'></goods-list>
+    <goods-list :goodsList='goods[currentType].list'></goods-list>
   </div>
 </template>
 <script>
@@ -39,7 +39,8 @@ export default {
         'pop': { page: 0, list: [] },
         'new': { page: 0, list: [] },
         'sell': { page: 0, list: [] }
-      }
+      },
+      currentType: 'new'
     }
   },
   components: {
@@ -63,9 +64,26 @@ export default {
     this.getGoods('sell')
   },
   methods: {
+    /**
+     * 监听tab点击事件，获取子组件传递的type值
+     */
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = 'pop';
+          break;
+        case 1:
+          this.currentType = 'new';
+          break;
+        case 2:
+          this.currentType = 'sell';
+          break;
+      }
+      // console.log(this.currentType)
+    },
     getGoods(type) {
       const page = this.goods[type].page + 1;
-      getHomeGoods('pop', page).then(res => {
+      getHomeGoods(type, page).then(res => {
         // console.log(res.data)
         this.goods[type].list.push(...res.data.data.list);
         this.goods[type].page = page;
