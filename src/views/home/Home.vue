@@ -3,13 +3,16 @@
     <nav-bar class='home-nav'>
       <div slot='center'>嗨购</div>
     </nav-bar>
-    <home-swiper :banners='banners'></home-swiper>
-    <home-recommends :recommends='recommends'></home-recommends>
-    <home-fashion></home-fashion>
+    <scroll class='content'>
+      <home-swiper :banners='banners'></home-swiper>
+      <home-recommends :recommends='recommends'></home-recommends>
+      <home-fashion></home-fashion>
 
-    <tab-control :titles='["流行","新品","精选"]' @tabClick='tabClick'></tab-control>
+      <tab-control :titles='["流行","新品","精选"]' @tabClick='tabClick'></tab-control>
 
-    <goods-list :goodsList='goods[currentType].list'></goods-list>
+      <goods-list :goodsList='goods[currentType].list'></goods-list>
+    </scroll>
+    <back-top></back-top>
   </div>
 </template>
 <script>
@@ -18,6 +21,9 @@ import NavBar from '../../components/common/nevbar/NavBar'
 //tabcontrol切换
 import TabControl from '../../components/content/tabcontrol/TabControl'
 import GoodsList from '../../components/content/goods/GoodsList'
+import Scroll from '../../components/common/bscroll/Scroll'
+//回到顶部
+import BackTop from '../../components/content/backtop/BackTop'
 
 //homeswiper轮播图
 import HomeSwiper from './childcomps/HomeSwiper'
@@ -40,7 +46,7 @@ export default {
         'new': { page: 0, list: [] },
         'sell': { page: 0, list: [] }
       },
-      currentType: 'new'
+      currentType: 'pop'
     }
   },
   components: {
@@ -50,7 +56,9 @@ export default {
 
     NavBar,
     TabControl,
-    GoodsList
+    GoodsList,
+    Scroll,
+    BackTop
   },
   created() {
     getMultidata().then(res => {
@@ -105,5 +113,8 @@ export default {
 
   background-color: var(--color-tint);
   color: #fff;
+}
+.content {
+  height: calc(100vh - 93px);
 }
 </style>
