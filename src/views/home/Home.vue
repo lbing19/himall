@@ -78,14 +78,29 @@ export default {
     this.getGoods('pop');
     this.getGoods('new');
     this.getGoods('sell');
-
-    //
+  },
+  mounted() {
+    //监听goodsListItem 中图片加载完成
+    //防抖
+    const refresh = this.debounce(this.$refs.scroll.refresh, 50)
     this.$bus.$on('itemLoad', () => {
-      // console.log("图片加载-----")
-      this.$refs.scroll.scroll.refresh();
+      // this.$refs.scroll && this.$refs.scroll.scroll.refresh();
+
+      refresh();
     })
   },
   methods: {
+
+    //防抖函数 debounce
+    debounce(fun, delay) {
+      let timer = null;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fun.apply(this, args)
+        }, delay);
+      }
+    },
     /**
      * 监听tab点击事件，获取子组件传递的type值
      */

@@ -41,7 +41,13 @@ export default {
     this.scroll.on('pullingUp', () => {
       this.$emit('pullingUp');
     })
-  }
+  },
+  methods: {
+    refresh() {
+      console.log("---- refresh -----")
+      this.$refs.scroll && this.scroll.refresh();
+    }
+  },
 }
 </script>
 <style scoped>
