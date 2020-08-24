@@ -12,7 +12,7 @@
 
       <goods-list :goodsList='goods[currentType].list'></goods-list>
     </scroll>
-    <back-top></back-top>
+    <back-top @click.native='backTop'></back-top>
   </div>
 </template>
 <script>
@@ -75,6 +75,9 @@ export default {
     /**
      * 监听tab点击事件，获取子组件传递的type值
      */
+    backTop() {
+      console.log('backTop监听点击')
+    },
     tabClick(index) {
       switch (index) {
         case 0:
