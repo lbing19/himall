@@ -3,7 +3,14 @@
     <nav-bar class='home-nav'>
       <div slot='center'>嗨购</div>
     </nav-bar>
-    <scroll class='content'>
+    <scroll
+      class='content'
+      ref='scroll'
+      :probe-type='3'
+      @scroll='backTopScroll'
+      :pull-up-load='true'
+      @pullingUp='loadMore'
+    >
       <home-swiper :banners='banners'></home-swiper>
       <home-recommends :recommends='recommends'></home-recommends>
       <home-fashion></home-fashion>
@@ -12,7 +19,7 @@
 
       <goods-list :goodsList='goods[currentType].list'></goods-list>
     </scroll>
-    <back-top @click.native='backTop'></back-top>
+    <back-top @click.native='backTop' v-show='backTopShow' />
   </div>
 </template>
 <script>
@@ -46,7 +53,8 @@ export default {
         'new': { page: 0, list: [] },
         'sell': { page: 0, list: [] }
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      backTopShow: false
     }
   },
   components: {
@@ -68,15 +76,23 @@ export default {
     });
     //获取商品列表
     this.getGoods('pop');
-    this.getGoods('new')
-    this.getGoods('sell')
+    this.getGoods('new');
+    this.getGoods('sell');
+
+    //
+    this.$bus.$on('itemLoad', () => {
+      // console.log("图片加载-----")
+      this.$refs.scroll.scroll.refresh();
+    })
   },
   methods: {
     /**
      * 监听tab点击事件，获取子组件传递的type值
      */
     backTop() {
-      console.log('backTop监听点击')
+      // console.log('backTop监听点击');
+      // this.scroll.scrollTo(0, 0)
+      this.$refs.scroll.scroll.scrollTo(0, 0, 500)
     },
     tabClick(index) {
       switch (index) {
@@ -98,7 +114,17 @@ export default {
         // console.log(res.data)
         this.goods[type].list.push(...res.data.data.list);
         this.goods[type].page = page;
+
       })
+    },
+    //监听backtop，显示
+    backTopScroll(position) {
+      this.backTopShow = -position.y > 600
+    },
+    loadMore() {
+      this.getGoods(this.currentType);
+
+      this.$refs.scroll.scroll.finishPullUp();
     }
   },
 }
