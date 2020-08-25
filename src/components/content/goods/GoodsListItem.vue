@@ -1,8 +1,6 @@
 <template>
-  <div class='goods-list-item'>
-    <a :href='goodsItem.link'>
-      <img :src='goodsItem.show.img' @load='imgLoad' />
-    </a>
+  <div class='goods-list-item' @click='itemClick'>
+    <img :src='goodsItem.show.img' @load='imgLoad' />
     <div class='item-info'>
       <p>{{goodsItem.title}}</p>
       <span class='price'>{{goodsItem.price}}</span>
@@ -24,8 +22,11 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit('itemLoad')
+    },
+    itemClick() {
+
     }
-  },
+  }
 }
 </script>
 <style scoped>

@@ -53,7 +53,7 @@ export default {
       this.handleDom();
       // 2.开启定时器
       this.startTimer();
-    }, 100)
+    }, 500)
   },
   methods: {
     /**

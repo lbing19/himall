@@ -18,8 +18,7 @@ export default {
     },
     pullUpLoad: {
       type: Boolean,
-      default: false,
-      threshold: 10
+      default: false
     }
   },
   data() {

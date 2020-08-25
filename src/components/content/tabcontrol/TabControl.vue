@@ -38,9 +38,7 @@ export default {
 </script>
 <style scoped>
 .tab-control {
-  position: sticky;
   background-color: #fff;
-  top: 44px;
   display: flex;
   text-align: center;
   line-height: 40px;
