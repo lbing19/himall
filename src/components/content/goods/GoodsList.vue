@@ -29,7 +29,7 @@ export default {
 .goods-list {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-evenly; */
+  justify-content: space-evenly;
   padding: 2px;
 }
 </style>

@@ -24,21 +24,35 @@ export default {
       this.$bus.$emit('itemLoad')
     },
     itemClick() {
+      this.$router.push('/detail/' + this.goodsItem.iid);
 
+      // this.$router.push({
+      //   path: '/detail',
+      //   query: {
+
+      //   }
+      // })
     }
   }
 }
 </script>
 <style scoped>
 .goods-list-item {
-  padding: 5px;
-  width: 50%;
+  position: relative;
+  padding-bottom: 40px;
+
+  width: 48%;
 }
 .goods-list-item img {
   width: 100%;
+  height: 98%;
   border-radius: 10px;
 }
 .item-info {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
   font-size: 14px;
   text-align: center;
 }
