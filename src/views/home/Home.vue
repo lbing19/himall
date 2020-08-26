@@ -91,8 +91,8 @@ export default {
     this.getGoods('sell');
   },
   activated() {
-    this.$refs.scroll.scroll.scrollTo(0, this.saveY);
     this.$refs.scroll.scroll.refresh();//必要的
+    this.$refs.scroll.scroll.scrollTo(0, this.saveY);
   },
   deactivated() {
     this.saveY = this.$refs.scroll.scroll.y

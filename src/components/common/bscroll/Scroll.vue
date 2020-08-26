@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     refresh() {
-      console.log("---- refresh -----")
+      // console.log("---- refresh -----")
       this.$refs.scroll && this.scroll.refresh();
     }
   },
