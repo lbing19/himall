@@ -22,6 +22,5 @@ export default {
   bottom: 0;
   box-shadow: 0 -2px 1px rgba(100, 100, 100, 0.1);
   vertical-align: middle;
-  z-index: 9;
 }
 </style>

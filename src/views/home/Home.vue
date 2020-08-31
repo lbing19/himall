@@ -92,7 +92,7 @@ export default {
   },
   activated() {
     this.$refs.scroll.scroll.refresh();//必要的
-    this.$refs.scroll.scroll.scrollTo(0, this.saveY);
+    this.$refs.scroll.scroll.scrollTo(0, this.saveY, 0);
   },
   deactivated() {
     this.saveY = this.$refs.scroll.scroll.y
@@ -100,7 +100,7 @@ export default {
   mounted() {
     //监听goodsListItem 中图片加载完成
     //防抖
-    const refresh = this.debounce(this.$refs.scroll.refresh, 50)
+    const refresh = this.debounce(this.$refs.scroll.refresh, 500)
     this.$bus.$on('itemLoad', () => {
       // this.$refs.scroll && this.$refs.scroll.scroll.refresh();
       refresh();
@@ -175,7 +175,7 @@ export default {
 <style scoped>
 #home {
   /* padding-top: 44px; */
-  height: 100vh;
+  /* height: 100vh; */
   position: relative;
 }
 .home-nav {
