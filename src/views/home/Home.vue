@@ -100,10 +100,10 @@ export default {
   mounted() {
     //监听goodsListItem 中图片加载完成
     //防抖
-    const refresh = this.debounce(this.$refs.scroll.refresh, 500)
+    const new_refresh = this.debounce(this.$refs.scroll.refresh, 100)
     this.$bus.$on('itemLoad', () => {
       // this.$refs.scroll && this.$refs.scroll.scroll.refresh();
-      refresh();
+      new_refresh();
     })
   },
   methods: {
