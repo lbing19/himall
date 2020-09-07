@@ -9,7 +9,7 @@
       <detail-params-info ref='params' :paramInfo='goodsParams'></detail-params-info>
       <detail-comment-info ref='comments' :commentInfo='commentInfo'></detail-comment-info>
     </scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @addToCart='addToCart'></detail-bottom-bar>
   </div>
 </template>
 <script>
@@ -93,6 +93,19 @@ export default {
           this.$refs.navbar.currentIndex = i;
         }
       }
+    },
+    addToCart() {
+      //获取购物车需要展示信息
+      const product = {};
+      product.iid = this.iid;
+      product.image = this.topImgs[0];
+      product.title = this.goodsDetail.title;
+      product.desc = this.goodsDetail.desc;
+      product.price = this.goodsDetail.realPrice;
+      //将商品添加到购物车
+      this.$store.dispatch('addCart', product).then(res => {
+        console.log(res)
+      })
     }
   }
 }
